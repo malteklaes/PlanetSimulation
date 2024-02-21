@@ -1,5 +1,6 @@
 # PlanetSimulation
 Description: Simulation of planets movement through octree datastructure and Barnes-Hut-algorithm.
+- (from a former software project at the Vienna University of Technology)
 
 ## Datenstruktur: Octree
 
