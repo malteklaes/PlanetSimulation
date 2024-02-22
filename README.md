@@ -1,25 +1,31 @@
 # PlanetSimulation
-Description: Simulation of planets movement through octree datastructure and Barnes-Hut-algorithm.
-- (from a former software project at the Vienna University of Technology)
 
-## Datenstruktur: Octree
+## about 
+Simulation of planets movement through octree datastructure and Barnes-Hut-algorithm.
+- (from a former software project at the Vienna University of Technology, Prof. Franz Puntigam)
 
-Wie werden die Gruppen gefunden, die man zusammenfassen kann? Eine geeignete Datenstruktur ist der Quadtree in 2D bzw. der Octree in 3D. Die Konzepte des Quadtrees sind:
+## data structure: Octree
 
-1. Der erste Schritt ist, alle Himmelskörper der Simulation in eine Baumstruktur (den Quadtree bzw. Octree) einzufügen. Das Einfügen geschieht rekursiv: Ist ein Knoten leer (N), wird der Himmelskörper eingefügt und es entsteht dabei ein Blattknoten, der genau einen Himmelskörper enthält. Ist der Knoten, in den eingefügt wird, ein Blattknoten mit genau einem Himmelskörper, wird der Blattknoten in vier - zunächst leere - Quadranten geteilt und beide Himmelskörper in die entsprechenden Quadranten eingefügt. Jeder Quadrant entspricht einem Unterbaum. Zur Vermeidung mehrfacher Berechnungen sollte jeder Knoten (auf jeder Ebene des Baumes) Gesamtmasse und Schwerpunkt der enthaltenen Himmelskörper in einer Variable speichern. Die Größen werden beim Einfügen aktualisiert.
+> How are the groups found that can be combined? A suitable data structure is the quadtree in 2D or the octree in 3D. The concepts of the quadtree are:
 
-2. Berechnung der Schwerkraft: Für jeden Himmelskörper wird die auf ihn wirkende Kraft berechnet. Dabei wird die Baumstruktur ausgenutzt. Für Teilbäume, deren Quadranten die Eigenschaften erfüllen, das heißt, vom Himmelskörper weit genug entfernt sind, kann die Kraft, die vom Quadranten ausgeht, ermittelt werden, ohne den Baum weiter hinab steigen zu müssen. Es wird also beim Traversieren des Baumes getestet, ob ein Quadrant die Eigenschaft erfüllt. Ist das nicht der Fall, werden - solange es noch welche gibt - alle Unterquadranten geprüft, im ungünstigsten Fall bis zu den Blattknoten. Das bedeutet, dass man für T = 0 die gleiche Lösung bekommt, wie bei der direkten Aufsummierung aller Kräfte (aufgrund der Verwaltung der Daten durch den Baum jedoch noch langsamer).
+1. The first step is to insert all celestial bodies of the simulation into a tree structure (the quadtree or octree). The insertion is done recursively: If a node is empty (N), the celestial body is inserted and a leaf node is created that contains exactly one celestial body. If the node into which the insertion is made is a leaf node with exactly one celestial body, the leaf node is divided into four - initially empty - quadrants and both celestial bodies are inserted into the corresponding quadrants. Each quadrant corresponds to a subtree. To avoid multiple calculations, each node (at each level of the tree) should store the total mass and center of gravity of the celestial bodies it contains in a variable. Sizes are updated upon insertion.
 
-3. Nachdem alle Himmelskörper gemäß der auf sie wirkenden Kräfte bewegt wurden, muss der gesamte Baum neu aufgebaut werden, das heißt, Punkt 1 und 2 werden in der Simulation in einer Schleife wiederholt.
+<br>
+
+2. Calculation of gravity: The force acting on each celestial body is calculated. The tree structure is used. For subtrees whose quadrants fulfill the properties, that is, are far enough away from the celestial body, the force emanating from the quadrant can be determined without having to climb further down the tree. When traversing the tree, it is tested whether a quadrant fulfills the property. If this is not the case, as long as there are still some, all sub-quadrants are checked, in the worst case up to the leaf nodes. This means that for T = 0 you get the same solution as with the direct summation of all the forces (but even slower due to the way the data is managed by the tree).
+
+<br>
+
+3. After all celestial bodies have been moved according to the forces acting on them, the entire tree must be rebuilt, that is, points 1 and 2 are repeated in a loop in the simulation.
 
 <img src="./quadtree.png" alt="BILD" style="width:200%; border:0; float:left, margin:5px" >
 
-## Algorithmus: Barnes-Hut
-J. Barnes und P. Hut: ''A hierarchical O(N log N) force-calculation algorithm'' in _Nature_, 324:446-449, 1986 (kann im TU VPN heruntergeladen werden).
+## algorithm: Barnes-Hut
+J. Barnes und P. Hut: ''A hierarchical O(N log N) force-calculation algorithm'' in _Nature_, 324:446-449, 1986.
 
 
 <img src="./barnes-hut.png" alt="BILD" style="width:200%; border:0; float:left, margin:5px" >
 
 
-## Final result (also visible in .jar)
+## final result (also visible in .jar)
 <img src="./simulation2.png" alt="BILD" style="width:200%; border:0; float:left, margin:5px" >
